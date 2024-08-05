@@ -41,20 +41,27 @@ This script will:
 
 ## Usage
 
-To use the `filegpt` command, run:
+### Update File
+
+To use the `filegpt` command and update the file content, run:
 
 ```sh
-filegpt <file_path> <prompt>
+filegpt replace <file_path> <prompt>
 ```
 
 - `<file_path>`: Path to the file you want to update.
 - `<prompt>`: Prompt to send to ChatGPT along with the file content.
 
-### Example
+### Query File
+
+To use the `filegpt` command and query the file content, run:
 
 ```sh
-filegpt /path/to/your/file.txt "Please improve the content of this file"
+filegpt get <file_path> <prompt>
 ```
+
+- `<file_path>`: Path to the file you want to update.
+- `<prompt>`: Prompt to send to ChatGPT along with the file content.
 
 ## Configurations
 
