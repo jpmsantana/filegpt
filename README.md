@@ -8,7 +8,6 @@ FileGPT File Updater is a command-line tool that takes a file and a prompt, send
 - [Usage](#usage)
 - [Configuration](#configuration)
 - [Environment Variables](#environment-variables)
-- [Project Structure](#project-structure)
 
 ## Installation
 
