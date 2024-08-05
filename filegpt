@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Ensure the script exits if any command fails
+set -e
+
+# Ensure node is installed
+if ! command -v node &> /dev/null
+then
+    echo "Node.js could not be found. Please install Node.js to use this script."
+    exit
+fi
+
+# Check if the FILEGPT_ROOT environment variable is set
+if [ -z "$FILEGPT_ROOT" ]; then
+    echo "FILEGPT_ROOT environment variable is not set. Please set it to the root directory of the filegpt project."
+    exit 1
+fi
+
+# Execute the JavaScript file with Node.js
+node "$FILEGPT_ROOT/index.js" "$@"

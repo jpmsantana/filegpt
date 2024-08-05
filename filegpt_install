@@ -1,0 +1,39 @@
+#!/bin/bash
+
+# Ensure the script exits if any command fails
+set -e
+
+# Determine the directory where this install script is located
+INSTALL_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# Copy the chatgpt.sh script to /usr/local/bin and rename it to chatgpt
+sudo cp "$INSTALL_DIR/filegpt" /usr/local/bin/filegpt
+
+# Ensure the script is executable
+sudo chmod +x /usr/local/bin/filegpt
+
+# Add FILEGPT_ROOT to .zshrc or .bashrc
+if [ -f "$HOME/.zshrc" ]; then
+    SHELL_CONFIG="$HOME/.zshrc"
+elif [ -f "$HOME/.bashrc" ]; then
+    SHELL_CONFIG="$HOME/.bashrc"
+else
+    echo "Neither .zshrc nor .bashrc found in home directory. Please create one and re-run the script."
+    exit 1
+fi
+
+if ! grep -q "export FILEGPT_ROOT=" "$SHELL_CONFIG"; then
+    echo "export FILEGPT_ROOT=$INSTALL_DIR" >> "$SHELL_CONFIG"
+    echo "Added FILEGPT_ROOT to $SHELL_CONFIG"
+else
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        sed -i '' "s|export FILEGPT_ROOT=.*|export FILEGPT_ROOT=$INSTALL_DIR|" "$SHELL_CONFIG"
+    else
+        sed -i "s|export FILEGPT_ROOT=.*|export FILEGPT_ROOT=$INSTALL_DIR|" "$SHELL_CONFIG"
+    fi
+    echo "Updated FILEGPT_ROOT in $SHELL_CONFIG"
+fi
+
+echo "Installation complete. Please restart your terminal or run 'source $SHELL_CONFIG' to apply the changes."
+echo "You can now use the 'chatgpt' command from anywhere."
+
